@@ -46,7 +46,8 @@ const author = document.querySelector("#quote span:last-child");
 
 function randomQuote() {
 	randomNum = Math.floor(Math.random() * quotes.length);
-	quote.innerText = quotes[randomNum].quote;
+	quote.innerText = "❤︎..Today's quote..❤︎\n"
+	quote.innerText += `"${quotes[randomNum].quote}"`;
 	author.innerText = "\nby.. " + quotes[randomNum].author;
 }
 

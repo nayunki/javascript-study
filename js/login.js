@@ -6,17 +6,16 @@ function handleLoginSubmit(event) {
 	event.preventDefault();
 	const name = loginInput.value;
 	if (name == "") {
-		alert("write your name");
+		alert("write your name..!❤︎");
 	} else {
 		localStorage.setItem("name", name);
-		console.log("name saved : " + name);
 		loginForm.classList.add("hidden");
-		greeting.innerText = `Hello ${name}`;
+		greeting.innerText = `Hello ${name}..❤︎`;
 	}
 }
 
 if (localStorage.length > 0) {
 	loginForm.classList.add("hidden");
-	greeting.innerText = "Hello " + localStorage.getItem("name");
+	greeting.innerText = "Hello " + localStorage.getItem("name") + "..❤︎";
 }
 loginForm.addEventListener("submit", handleLoginSubmit);
