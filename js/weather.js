@@ -6,14 +6,15 @@ function goodWork(position) {
 	.then(data => {
 		const city = document.querySelector("#weather span:first-child");
 		const weather = document.querySelector("#weather span:last-child");
-		city.innerText = "❤︎..Today's weather..❤︎\n";
-		city.innerText += data.name;
-		weather.innerText = `\n${data.weather[0].main} / ${data.main.temp}℃`;
+		city.innerText = `❤︎..Today's weather in @${data.name}..❤︎\n`;
+		weather.innerText = `${data.weather[0].main} / ${data.main.temp}℃`;
 	});
 }
 
 function errorWork() {
 	alert("Please allow the access to the Location..❤︎");
+	const city = document.querySelector("#weather span:first-child");
+	city.innerText = `❤︎..we couldn't find your location..❤︎\n`;
 }
 
 navigator.geolocation.getCurrentPosition(goodWork, errorWork);
