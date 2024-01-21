@@ -9,3 +9,24 @@ const routes = {
 }
 
 $app.innerHTML = routes["/"].template();
+
+export const changeUrl = (requestedUrl) => {
+	// url 변경
+	history.pushState(null, null, requestedUrl);
+	// routes에서 url에 맞는 컴포넌트 찾아 렌더링
+	$app.innerHTML = routes[requestedUrl].template();
+}
+
+function handleClick(event)
+{
+	if (event.target.classList.contains("moveToAboutPageBtn")) {
+		changeUrl("/about");
+	} else if (event.target.classList.contains("moveToHomePageBtn")) {
+		changeUrl("/");
+	}
+}
+
+window.addEventListener("click", handleClick);
+window.addEventListener("popstate", () => {
+	changeUrl(window.location.pathname);
+});
