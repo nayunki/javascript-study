@@ -1,4 +1,6 @@
-const colorOptions = document.querySelector(".color-option");
+const colorOptions = Array.from(
+	document.querySelector(".color-option")
+);
 
 const canvas = document.querySelector("canvas");
 const ctx = canvas.getContext("2d");
@@ -27,14 +29,19 @@ function handleMove(event) {
 }
 
 function handleLineWidthChange(event) {
-	ctx.beginPath();
 	ctx.lineWidth = event.target.value;
 }
 
 function handleColorChange(event) {
-	ctx.beginPath();
 	ctx.strokeStyle = event.target.value;
 	ctx.fillStyle = event.target.value;
+}
+
+function handleColorClick(event) {
+	const newColor = event.target.dataset.color;
+	ctx.strokeStyle = newColor;
+	ctx.fillStyle = newColor;
+	color.value = newColor;
 }
 
 addEventListener("mousemove", handleMove);
@@ -43,6 +50,7 @@ addEventListener("mousedown", () => {
 });
 addEventListener("mouseup", () => {
 	isPainting = false;
+	ctx.beginPath();
 });
 addEventListener("mouseleave", () => {
 	isPainting = false;
@@ -52,4 +60,4 @@ lineWidth.addEventListener("change", handleLineWidthChange);
 
 color.addEventListener("change", handleColorChange);
 
-console.log(colorOptions);
+colorOptions.forEach(color => color.addEventListener("click", handleColorClick));
