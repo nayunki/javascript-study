@@ -18,6 +18,7 @@ const CANVAS_HEIGHT = 800;
 canvas.width = CANVAS_WIDTH;
 canvas.height = CANVAS_HEIGHT;
 ctx.lineWidth = lineWidth.value;
+ctx.lineCap = "round";
 ctx.color = color;
 
 ctx.moveTo(0, 0);
@@ -62,9 +63,13 @@ function handleCanvasClick() {
 function handleDblclick(event) {
 	ctx.save(); // 흑흑 .. tmp 저장 안해도 되네용..
 	const text = textInput.value;
-	ctx.lineWidth = 1;
-	ctx.strokeText(text, event.offsetX, event.offsetY);
-	ctx.restore();
+	if (text !== "") {
+		ctx.lineWidth = 1;
+		ctx.font = "48px serif";
+		ctx.strokeText(text, event.offsetX, event.offsetY);
+		// ctx.fillText(text, event.offsetX, event.offsetY);
+		ctx.restore();
+	}
 }
 
 function handleErase() {
