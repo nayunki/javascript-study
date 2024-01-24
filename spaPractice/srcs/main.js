@@ -30,3 +30,5 @@ window.addEventListener("click", handleClick);
 window.addEventListener("popstate", () => {
 	changeUrl(window.location.pathname);
 });
+
+// 뒤로가기, 앞으로가기 구현 by history API
