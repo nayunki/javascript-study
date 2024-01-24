@@ -1,5 +1,6 @@
 const fileInput = document.querySelector("#file");
 const textInput = document.getElementById("text");
+const saveBtn = document.getElementById("save");
 
 const colorOptions = Array.from(
 	document.getElementsByClassName("color-option")
@@ -61,14 +62,15 @@ function handleCanvasClick() {
 }
 
 function handleDblclick(event) {
-	ctx.save(); // 흑흑 .. tmp 저장 안해도 되네용..
 	const text = textInput.value;
 	if (text !== "") {
+		ctx.save(); // 흑흑 .. tmp 저장 안해도 되네용..
 		ctx.lineWidth = 1;
 		ctx.font = "48px serif";
 		ctx.strokeText(text, event.offsetX, event.offsetY);
 		// ctx.fillText(text, event.offsetX, event.offsetY);
 		ctx.restore();
+		textInput.value = "";
 	}
 }
 
@@ -104,13 +106,21 @@ function handleFileChange(event) {
 	}
 }
 
+function handleSave() {
+	const url = canvas.toDataURL();
+	const a = document.createElement("a");
+	a.href = url;
+	a.download = "myDrawing.png";
+	a.click();
+}
+
 canvas.addEventListener("mousemove", handleMove);
 canvas.addEventListener("mousedown", () => {
+	ctx.beginPath();
 	isPainting = true;
 });
 canvas.addEventListener("mouseup", () => {
 	isPainting = false;
-	ctx.beginPath();
 });
 canvas.addEventListener("mouseleave", () => {
 	isPainting = false;
@@ -125,3 +135,4 @@ eraseBtn.addEventListener("click", handleErase);
 modeBtn.addEventListener("click", handleModeClick);
 resetBtn.addEventListener("click", handleReset);
 fileInput.addEventListener("change", handleFileChange);
+saveBtn.addEventListener("click", handleSave);
