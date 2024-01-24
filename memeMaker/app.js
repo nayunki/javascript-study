@@ -1,3 +1,6 @@
+const fileInput = document.querySelector("#file");
+const textInput = document.getElementById("text");
+
 const colorOptions = Array.from(
 	document.getElementsByClassName("color-option")
 );
@@ -56,6 +59,14 @@ function handleCanvasClick() {
 	}
 }
 
+function handleDblclick(event) {
+	ctx.save(); // 흑흑 .. tmp 저장 안해도 되네용..
+	const text = textInput.value;
+	ctx.lineWidth = 1;
+	ctx.strokeText(text, event.offsetX, event.offsetY);
+	ctx.restore();
+}
+
 function handleErase() {
 	ctx.strokeStyle = "white";
 	isFilling = false;
@@ -77,6 +88,17 @@ function handleReset() {
 	ctx.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
 }
 
+function handleFileChange(event) {
+	const file = event.target.files[0];
+	const url = URL.createObjectURL(file);
+	const image = new Image(); // html에서 <img src=""/> 쓰는 것과 동일
+	image.src = url;
+	image.onload = function () {
+		ctx.drawImage(image, 0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+		fileInput.value = null;
+	}
+}
+
 canvas.addEventListener("mousemove", handleMove);
 canvas.addEventListener("mousedown", () => {
 	isPainting = true;
@@ -88,6 +110,8 @@ canvas.addEventListener("mouseup", () => {
 canvas.addEventListener("mouseleave", () => {
 	isPainting = false;
 });
+canvas.addEventListener("dblclick", handleDblclick);
+
 lineWidth.addEventListener("change", handleLineWidthChange);
 color.addEventListener("change", handleColorChange);
 colorOptions.forEach(color => color.addEventListener("click", handleColorClick));
@@ -95,3 +119,4 @@ canvas.addEventListener("click", handleCanvasClick);
 eraseBtn.addEventListener("click", handleErase);
 modeBtn.addEventListener("click", handleModeClick);
 resetBtn.addEventListener("click", handleReset);
+fileInput.addEventListener("change", handleFileChange);
