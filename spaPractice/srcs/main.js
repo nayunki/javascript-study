@@ -32,3 +32,4 @@ window.addEventListener("popstate", () => {
 });
 
 // 뒤로가기, 앞으로가기 구현 by history API
+// about에서 새로고침하면 왜 GET 못하지 ?
