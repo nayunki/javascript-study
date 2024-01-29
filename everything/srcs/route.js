@@ -4,8 +4,8 @@ import Game from "./game.js";
 import Rank from "./rank.js";
 import Login from "./login.js";
 
-const $app = document.querySelector(".App");
-// 변수명 앞에 붙는 $는 아이디, 클래스, 태그처럼 단일 변수를 표시하기 위해 사용
+const appTitle = document.querySelector(".appTitle");
+const appContents = document.querySelector(".appContents");
 const loginForm = document.querySelector("#loginForm");
 const greeting = document.querySelector("#greeting");
 
@@ -17,12 +17,15 @@ const routes = {
     "/rank": Rank,
 }
 
-$app.innerHTML = routes["/"].template();
+// 초기 화면 설정
+appTitle.innerHTML = routes["/"].templateTitle();
+appContents.innerHTML = routes["/"].templateContents();
 
 const changeUrl = (requestedUrl) => {
 	history.pushState(null, null, requestedUrl);
     // history.pushState API를 활용하여 페이지를 다시 로드하지 않고 URL을 탐색 할 수 있다.
-	$app.innerHTML = routes[requestedUrl].template();
+	appTitle.innerHTML = routes[requestedUrl].templateTitle();
+    appContents.innerHTML = routes[requestedUrl].templateContents();
 }
 
 export default changeUrl;

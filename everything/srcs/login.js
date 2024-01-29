@@ -1,9 +1,14 @@
 import changeUrl from "./route.js";
 
 class Login {
-	template() {
+	templateTitle() {
 		return `
 		<div>Login</div>
+		`;
+	}
+	templateContents() {
+		return `
+		<div>LoginContents</div>
 		`;
 	}
 }
